@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import ContactsForm from './ContactsForm/ContactsForm';
-import css from './App.module.css';
 import ContactsList from './ContactsList/ContactsList';
 import FilterContact from './FilterContact/FilterContact';
+import css from './App.module.css';
 import { nanoid } from 'nanoid';
 
 const MY_CONTACTS = 'my-contacts';
 
 export default class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
   };
 
@@ -25,8 +20,10 @@ export default class App extends Component {
     }
   }
 
-  componentDidUpdate() {
-    this.saveContactsToList();
+  componentDidUpdate(_, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem(MY_CONTACTS, JSON.stringify(this.state.contacts));
+    }
   }
 
   handleSubmitForm = ({ name, number }) => {
@@ -45,11 +42,6 @@ export default class App extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contactObj],
     }));
-    this.saveContactsToList();
-  };
-
-  saveContactsToList = () => {
-    localStorage.setItem(MY_CONTACTS, JSON.stringify(this.state.contacts));
   };
 
   handleFilterContact = e => {

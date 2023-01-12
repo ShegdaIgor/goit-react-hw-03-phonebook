@@ -13,7 +13,7 @@ export default class ContactsForm extends Component {
     this.setState({ [name]: value });
   };
 
-  getContactFormData = e => {
+  handleSubmitForm = e => {
     e.preventDefault();
     this.props.handleSubmitForm(this.state);
 
@@ -25,10 +25,10 @@ export default class ContactsForm extends Component {
 
   render() {
     const { name, number } = this.state;
-    const { handleContactData, getContactFormData } = this;
+    const { handleContactData, handleSubmitForm } = this;
 
     return (
-      <form onSubmit={getContactFormData} className={css.form}>
+      <form onSubmit={handleSubmitForm} className={css.form}>
         <div className={css.inputWrapper}>
           <label className={css.formLabel}>Name</label>
           <input
