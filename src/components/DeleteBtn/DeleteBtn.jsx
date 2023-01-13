@@ -1,22 +1,17 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import css from './DeleteBtn.module.css';
 
-export default class DeleteBtn extends Component {
-  render() {
-    const { id, actionText, onDeleteContact } = this.props;
-    return (
-      <button
-        type="button"
-        className={css.buttonOnDelete}
-        onClick={() => onDeleteContact(id)}
-      >
-        {actionText}
-        {this.props.children}
-      </button>
-    );
-  }
-}
+export const DeleteBtn = ({ id, actionText, onDeleteContact }) => {
+  return (
+    <button
+      type="button"
+      className={css.buttonOnDelete}
+      onClick={() => onDeleteContact(id)}
+    >
+      {actionText}
+    </button>
+  );
+};
 
 DeleteBtn.propTypes = {
   actionText: PropTypes.string.isRequired,
